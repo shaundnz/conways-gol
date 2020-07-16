@@ -1,7 +1,7 @@
 public class GOLModel {
 
     private int[][] boardModel;
-    private final int DEFAULTSIZE = 50;
+    public static final int DEFAULTSIZE = 50;
     private int rows, cols;
 
     public GOLModel(){
@@ -28,8 +28,10 @@ public class GOLModel {
         this.rows = rows;
     }
 
-    // TODO Get next game state
-    public int[][] nextState(){
+    // TODO Get next game board
+    public int[][] boardState(){
         return null;
     }
+
+
 }
