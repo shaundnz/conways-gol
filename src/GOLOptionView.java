@@ -1,6 +1,7 @@
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
+import java.awt.event.ActionListener;
 
 public class GOLOptionView extends JPanel {
 
@@ -15,6 +16,7 @@ public class GOLOptionView extends JPanel {
     }
 
     private void buildOptionsPanel(){
+        setBorder(BorderFactory.createLineBorder(Color.BLACK));
         setLayout(new FlowLayout(FlowLayout.LEFT));
         setBackground(Color.LIGHT_GRAY);
         setPreferredSize(new Dimension());
@@ -33,7 +35,7 @@ public class GOLOptionView extends JPanel {
         add(colsLabel);
         add(colsField);
 
-        setPreferredSize(new Dimension(600,35));
+        setPreferredSize(new Dimension(GOLBoardView.BOARD_WIDTH,35));
     }
 
     public boolean getIsRunning() {
@@ -44,4 +46,48 @@ public class GOLOptionView extends JPanel {
         isRunning = running;
     }
 
+    public void addTextPanelListener(ActionListener listenForTextPanel){
+        rowsField.addActionListener(listenForTextPanel);
+        colsField.addActionListener(listenForTextPanel);
+    }
+
+    public void addStartStopActionListener(ActionListener actionListener){
+        startStopButton.addActionListener(actionListener);
+    }
+
+    public void addResetActionListener(ActionListener actionListener){
+        resetButton.addActionListener(actionListener);
+    }
+
+    public void displayErrorMessage(String message){
+        JOptionPane.showMessageDialog(this, message);
+    }
+
+    public JTextField getRowsField(){
+        return rowsField;
+    }
+
+    public JTextField getColsField(){
+        return colsField;
+    }
+
+    public JButton getStartStopButton(){
+        return startStopButton;
+    }
+
+    public JButton getResetButton(){
+        return resetButton;
+    }
+
+    public void disableButtons(){
+        resetButton.setEnabled(false);
+        colsField.setEnabled(false);
+        rowsField.setEnabled(false);
+    }
+
+    public void enableButtons(){
+        resetButton.setEnabled(true);
+        colsField.setEnabled(true);
+        rowsField.setEnabled(true);
+    }
 }

@@ -1,21 +1,33 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseListener;
 
 public class GOLBoardView extends JPanel {
     int rows;
     int cols;
-    private final int BOARD_WIDTH = 600;
-    private final int BOARD_HEIGHT = 600;
+    int[][] boardState;
+    public static final int BOARD_WIDTH = 800;
+    public static final int BOARD_HEIGHT = 600;
 
 
-    public GOLBoardView(int rows, int cols){
-        this.rows = rows;
-        this.cols = cols;
+    public GOLBoardView(){
+        this.rows = GOLModel.DEFAULTSIZE;
+        this.cols = GOLModel.DEFAULTSIZE;
+        this.boardState = new int[rows][cols];
         setPreferredSize(new Dimension(BOARD_WIDTH,BOARD_HEIGHT));
-        setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        setBorder(BorderFactory.createLineBorder(Color.lightGray));
     }
 
-    public void paintGrid(Graphics g){
+    @Override
+    public void paint(Graphics g) {
+        super.paint(g);
+        paintGrid(g);
+        paintCells(g);
+    }
+
+    private void paintGrid(Graphics g){
+        g.setColor(Color.lightGray);
         // Paint rows
         int rowHeight = BOARD_HEIGHT / rows;
         int yRow = rowHeight;
@@ -32,8 +44,29 @@ public class GOLBoardView extends JPanel {
         }
     }
 
-    public void setGrid(int rows, int cols){
-        this.rows = rows;
+    private void paintCells(Graphics g){
+        int cellWidth = BOARD_WIDTH / cols;
+        int cellHeight = BOARD_HEIGHT / rows;
+        g.setColor(Color.YELLOW);
+        for (int i = 0; i < rows; i ++){
+            for(int j = 0; j < cols; j ++){
+                if(boardState[i][j] == 1) {
+                    g.fillRect(cellWidth * j, cellHeight * i, cellWidth, cellHeight);
+                }
+            }
+        }
+    }
+
+    public void updateColumns(int cols){
         this.cols = cols;
     }
+
+    public void updateRows(int rows){
+        this.rows = rows;
+    }
+
+    public void updateBoardState(int[][] newBoardState){
+        this.boardState = newBoardState;
+    }
+
 }
